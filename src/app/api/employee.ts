@@ -6,9 +6,6 @@ import { EMPLOYEE_SERVICE } from "@/utils/constance";
 const employeeApi = {
     signup: async (signupData: EmployeeSignUpCredentials): Promise<any> => {
 
-        try{
-            const response = await axiosInstance.post(`${EMPLOYEE_SERVICE}/signup`, signupData)
-
         try {
             const response = await axiosInstance.post(`${EMPLOYEE_SERVICE}/employee/signup`, signupData)
 
@@ -19,9 +16,6 @@ const employeeApi = {
     },
 
     login: async (loginData: EmployeeLoginCredentials): Promise<any> => {
-
-        try{
-            const response = await axiosInstance.post(`${EMPLOYEE_SERVICE}/login`, loginData)
 
         try {
             const response = await axiosInstance.post(`${EMPLOYEE_SERVICE}/employee/login`, loginData)
