@@ -1,0 +1,5 @@
+
+export const BACKEND_PORT = process.env.NEXT_PUBLIC_BACKEND_PORT
+export const EMPLOYEE_SERVICE = process.env.NEXT_PUBLIC_EMPLOYEE_SERVICE
+export const MANAGER_SERVICE = process.env.NEXT_PUBLIC_MANAGER_SERVICE
+
