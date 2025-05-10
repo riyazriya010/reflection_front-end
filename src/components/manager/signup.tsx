@@ -1,5 +1,6 @@
 'use client'
-import managerApi from '@/app/api/employee';
+
+import managerApi from '@/app/api/manager';
 import { useRouter } from 'next/navigation';
 import { useForm, SubmitHandler } from 'react-hook-form'
 
@@ -23,7 +24,7 @@ export default function ManagerSignUpForm() {
     const signUpFormSubmit: SubmitHandler<ManagerSignUpCredentials> = async (data) => {
         try {
             const response = await managerApi.signup(data)
-            console.log('response ', response)
+            console.log('Manager response ', response)
             if(response.data.success){
                 router.replace('/pages/manager/dashboard')
             }

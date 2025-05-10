@@ -1,6 +1,5 @@
 'use client'
-import managerApi from '@/app/api/employee';
-import employeeApi from '@/app/api/employee';
+import managerApi from '@/app/api/manager';
 import { useRouter } from 'next/navigation';
 import { useForm, SubmitHandler } from 'react-hook-form'
 

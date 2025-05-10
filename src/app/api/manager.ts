@@ -6,7 +6,7 @@ import { MANAGER_SERVICE } from "@/utils/constance";
 const managerApi = {
     signup: async (signupData: ManagerSignUpCredentials): Promise<any> => {
         try{
-            const response = await axiosInstance.post(`${MANAGER_SERVICE}/manager/signup`, signupData)
+            const response = await axiosInstance.post(`${MANAGER_SERVICE}/signup`, signupData)
             return response
         }catch(error: unknown){
             throw error
@@ -15,7 +15,7 @@ const managerApi = {
 
     login: async (loginData: ManagerLoginCredentials): Promise<any> => {
         try{
-            const response = await axiosInstance.post(`${MANAGER_SERVICE}/manager/login`, loginData)
+            const response = await axiosInstance.post(`${MANAGER_SERVICE}/login`, loginData)
             return response
         }catch(error: unknown){
             throw error
