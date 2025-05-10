@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useForm, SubmitHandler } from 'react-hook-form'
 
 
-//Predefining the Signup credentials for typecheking the field
+//Predefining the Signup credentials for typechecking the field
 export interface EmployeeSignUpCredentials {
     username: string;
     phone: number;
