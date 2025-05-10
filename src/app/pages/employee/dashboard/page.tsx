@@ -1,4 +1,4 @@
-import EmployeeDashBoard from "@/components/employee/dashboard";
+import EmployeeDashBoard from "@/components/employee/Dashboard";
 
 export default function EmployeeDashBoardPage(){
     return(
