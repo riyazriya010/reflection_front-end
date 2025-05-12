@@ -20,6 +20,24 @@ const managerApi = {
         }catch(error: unknown){
             throw error
         }
+    },
+
+    logout: async (): Promise<any> => {
+        try {
+            const response = await axiosInstance.post(`${MANAGER_SERVICE}/logout`)
+            return response
+        } catch (error: unknown) {
+            throw error
+        }
+    },
+
+    getEmployeesFeedback: async (department: string): Promise<any> => {
+        try{
+            const response = await axiosInstance.get(`${MANAGER_SERVICE}/get/employees/feedbacks?department=${department}`)
+            return response
+        }catch(error: unknown){
+            throw error
+        }
     }
 }
 

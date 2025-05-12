@@ -1,5 +1,5 @@
 'use client'
-import employeeApi from '@/app/api/employee';
+import adminApi from '@/app/api/admin';
 import { useRouter } from 'next/navigation';
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { ToastContainer, toast, Slide } from 'react-toastify';
@@ -7,28 +7,28 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 //Predefining the login credentials for typechecking the field
-export interface EmployeeLoginCredentials {
+export interface AdminLoginCredentials {
   email: string;
   password: string;
 }
 
-export default function EmployeeLoginForm() {
+export default function AdminLoginForm() {
   const router = useRouter()
 
   //useForm hook is used for handle the form data and errors
-  const { register, handleSubmit, formState: { errors } } = useForm<EmployeeLoginCredentials>()
+  const { register, handleSubmit, formState: { errors } } = useForm<AdminLoginCredentials>()
 
   //This function were use to submit the form data to backend
-  const loginFormSubmit: SubmitHandler<EmployeeLoginCredentials> = async (data) => {
+  const loginFormSubmit: SubmitHandler<AdminLoginCredentials> = async (data) => {
     try {
-      const response = await employeeApi.login(data)
+      console.log('hellooo', data)
+      const response = await adminApi.login(data)
       console.log('response ', response)
+
       if (response.data.success) {
-        localStorage.setItem('username', response.data.result.username);
-        localStorage.setItem('department', response.data.result.department);
-        toast.success('Employee Logged')
+        toast.success('Admin Logged')
         setTimeout(() => {
-          router.replace('/pages/employee/dashboard')
+          router.replace('/pages/admin/dynamic-form')
         }, 2000)
 
       }
@@ -40,6 +40,12 @@ export default function EmployeeLoginForm() {
       if (error && error.response?.status === 403) {
         toast.warn(error.response?.data?.message)
       }
+      if (error && error.response?.status === 409) {
+        toast.warn(error.response?.data?.message)
+      }
+      if (error && error.response?.status === 404) {
+        toast.warn(error.response?.data?.message)
+      }
     }
   }
 
@@ -47,6 +53,7 @@ export default function EmployeeLoginForm() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#1A1A1D]">
       <div className="w-full max-w-md bg-[#16213E] rounded-2xl shadow-lg p-8 space-y-6">
+
         <ToastContainer
           autoClose={2000}
           pauseOnHover={false}
@@ -55,7 +62,8 @@ export default function EmployeeLoginForm() {
           closeOnClick={false}
           pauseOnFocusLoss={true}
         />
-        <h2 className="text-2xl font-bold text-white text-center">Employee Login</h2>
+
+        <h2 className="text-2xl font-bold text-white text-center">Admin Login</h2>
 
         <form onSubmit={handleSubmit(loginFormSubmit)} className="space-y-4">
           <div>
@@ -103,13 +111,6 @@ export default function EmployeeLoginForm() {
             Login
           </button>
         </form>
-
-        <p className="text-sm text-center text-gray-400">
-          Don't have an account?
-          <a href="/pages/employee/signup" className="text-blue-400 hover:underline ml-1">
-            Sign up
-          </a>
-        </p>
       </div>
     </div>
   );

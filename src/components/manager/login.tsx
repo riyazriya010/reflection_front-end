@@ -2,6 +2,8 @@
 import managerApi from '@/app/api/manager';
 import { useRouter } from 'next/navigation';
 import { useForm, SubmitHandler } from 'react-hook-form'
+import { ToastContainer, toast, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 //Predefining the login credentials for typecheking the field
@@ -19,20 +21,46 @@ export default function ManagerLoginForm() {
   //This function were use to submit the form data to backend
   const loginFormSubmit: SubmitHandler<ManagerLoginCredentials> = async (data) => {
     try {
-            const response = await managerApi.login(data)
-            console.log('response ', response)
-            if(response.data.success){
-                router.replace('/pages/manager/dashboard')
-            }
-        } catch (error: unknown) {
-            console.log(error)
-        }
+      const response = await managerApi.login(data)
+      console.log('response ', response)
+      if (response.data.success) {
+        toast.success('Manager Logged')
+        localStorage.setItem('username', response.data.result.username);
+        localStorage.setItem('department', response.data.result.department);
+        setTimeout(() => {
+          router.replace('/pages/manager/dashboard')
+        }, 2000)
+
+      }
+    } catch (error: any) {
+      console.log(error)
+      if (error && error.response?.status === 401) {
+        toast.warn(error.response?.data?.message)
+      }
+      if (error && error.response?.status === 403) {
+        toast.warn(error.response?.data?.message)
+      }
+      if (error && error.response?.status === 409) {
+        toast.warn(error.response?.data?.message)
+      }
+      if (error && error.response?.status === 404) {
+        toast.warn(error.response?.data?.message)
+      }
+    }
   }
 
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#1A1A1D]">
       <div className="w-full max-w-md bg-[#16213E] rounded-2xl shadow-lg p-8 space-y-6">
+        <ToastContainer
+          autoClose={2000}
+          pauseOnHover={false}
+          transition={Slide}
+          hideProgressBar={false}
+          closeOnClick={false}
+          pauseOnFocusLoss={true}
+        />
         <h2 className="text-2xl font-bold text-white text-center">Manager Login</h2>
 
         <form onSubmit={handleSubmit(loginFormSubmit)} className="space-y-4">
